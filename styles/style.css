@@ -4,16 +4,39 @@
     --track-color: #2a2a2a;
     --border-color: #444;
     --track-border: #555;
-
     --accent-color: #00ffcc;
     --text-main: white;
     --text-dark: #1a1a1a;
+    --money-color: #2ed573;
 
     --car-1-color: #ff4757;
     --car-2-color: #2ed573;
     --car-3-color: #1e90ff;
 
+    --wrapper-max-width: 800px;
+    --border-radius-lg: 12px;
+    --border-radius-md: 8px;
+    --border-radius-sm: 4px;
+    --border-radius-full: 50px;
+    --padding-main: 20px;
+    --gap-standard: 15px;
+
+    --car-size: 60px;
+    --car-font-size: 40px;
+    --finish-line-width: 20px;
+    --finish-line-offset: 50px;
+    --track-padding-v: 20px;
+    --track-border-left: 10px;
+
     --glow-strength: 10px;
+    --glow-winner: 30px;
+    --transition-speed: 0.3s;
+    --animation-pulse: 0.6s;
+    --active-scale: 0.95;
+    --winner-scale: 1.1;
+    --z-background: 1;
+    --z-car: 2;
+    --z-winner: 10;
 }
 
 body {
@@ -30,14 +53,14 @@ body {
 .game-wrapper {
     text-align: center;
     width: 90%;
-    max-width: 800px;
+    max-width: var(--wrapper-max-width);
 }
 
 .settings-panel {
     background: var(--surface-color);
-    padding: 20px;
-    border-radius: 12px;
-    margin-bottom: 20px;
+    padding: var(--padding-main);
+    border-radius: var(--border-radius-lg);
+    margin-bottom: var(--padding-main);
     border: 1px solid var(--border-color);
 }
 
@@ -69,27 +92,17 @@ input[type="number"] {
     color: var(--accent-color);
     border: 1px solid var(--border-color);
     padding: 5px;
-    border-radius: 4px;
+    border-radius: var(--border-radius-sm);
     width: 50px;
-}
-
-#apply-settings {
-    background: var(--accent-color);
-    color: var(--text-dark);
-    border: none;
-    padding: 10px 20px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-weight: bold;
 }
 
 #scoreboard {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 20px;
+    margin-bottom: var(--padding-main);
     background: var(--surface-color);
     padding: 10px;
-    border-radius: 8px;
+    border-radius: var(--border-radius-md);
     border: 1px solid var(--border-color);
 }
 
@@ -100,29 +113,29 @@ input[type="number"] {
 
 #game-container {
     background: var(--track-color);
-    border-left: 10px solid var(--track-border);
+    border-left: var(--track-border-left) solid var(--track-border);
     position: relative;
-    padding: 20px 0;
-    border-radius: 4px;
+    padding: var(--track-padding-v) 0;
+    border-radius: var(--border-radius-sm);
     overflow: hidden;
 }
 
 .finish-line {
     position: absolute;
-    right: 50px;
+    right: var(--finish-line-offset);
     top: 0;
     bottom: 0;
-    width: 20px;
-    background: repeating-linear-gradient(0deg, var(--text-main), var(--text-main) 10px, #000 10px, #000 20px);
+    width: var(--finish-line-width);
+    background: repeating-linear-gradient( 0deg, var(--text-main), var(--text-main) 10px, #000 10px, #000 20px);
     opacity: 0.3;
-    z-index: 1;
+    z-index: var(--z-background);
 }
 
 .car {
-    font-size: 40px;
+    font-size: var(--car-font-size);
     margin: 10px 0;
-    width: 60px;
-    height: 60px;
+    width: var(--car-size);
+    height: var(--car-size);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -130,7 +143,8 @@ input[type="number"] {
     border-radius: 50%;
     border: 2px solid var(--border-color);
     position: relative;
-    z-index: 2;
+    z-index: var(--z-car);
+    transition: transform 0.1s linear;
 }
 
 #car1 { 
@@ -149,24 +163,114 @@ input[type="number"] {
 .controls { margin-top: 30px; }
 
 .btn {
-    padding: 12px 30px;
-    font-size: 18px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
-    margin: 0 10px;
-    transition: 0.3s transform, 0.3s background;
-}
-
-.btn:active { transform: scale(0.95); }
-
-.btn-start { 
     background: var(--accent-color); 
     color: var(--text-dark); 
     font-weight: bold; 
+    padding: 12px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: var(--border-radius-full);
+    cursor: pointer;
+    margin: 0 10px;
+    transition: var(--transition-speed) transform, var(--transition-speed) background, var(--transition-speed) box-shadow;
+}
+
+.btn:active { 
+    transform: scale(var(--active-scale)); 
 }
 
 .btn-reset { 
     background: var(--surface-color); 
     color: var(--text-main); 
+}
+
+.betting-panel {
+    background: var(--surface-color);
+    padding: var(--padding-main);
+    border-radius: var(--border-radius-lg);
+    margin-top: var(--padding-main);
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: var(--gap-standard);
+}
+
+.balance-container {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--accent-color);
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: var(--border-radius-md);
+    border: 1px dashed var(--accent-color);
+}
+
+#balance-display {
+    color: var(--money-color);
+    text-shadow: 0 0 10px rgba(46, 213, 115, 0.5);
+}
+
+.betting-panel select, 
+.betting-panel input[type="number"] {
+    background: var(--bg-dark);
+    color: var(--text-main);
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    border-radius: var(--border-radius-md);
+    outline: none;
+    transition: border-color var(--transition-speed);
+}
+
+.betting-panel select:focus, 
+.betting-panel input[type="number"]:focus {
+    border-color: var(--accent-color);
+}
+
+#game-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, transparent, transparent 40px, var(--track-border) 40px, var(--track-border) 80px);
+    opacity: 0.2;
+    z-index: var(--z-background);
+}
+
+.winner-glow {
+    animation: winner-pulse var(--animation-pulse) infinite alternate;
+    z-index: var(--z-winner) !important;
+}
+
+.btn:hover {
+    filter: brightness(1.2);
+    box-shadow: 0 0 15px var(--accent-color);
+}
+
+.btn-reset:hover {
+    background: var(--border-color);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 600px) {
+    .betting-panel {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .car {
+        font-size: 30px;
+        width: 50px;
+        height: 50px;
+    }
+}
+
+.bet-label {
+    font-size: 14px;
+    color: var(--track-border);
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }

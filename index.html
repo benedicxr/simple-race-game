@@ -19,7 +19,7 @@
 
         <div class="settings-panel">
             <div class="input-group">
-                <label>Кількість машин:</label>
+                <label>Number of cars:</label>
                 <input type="number" id="car-count" min="2" max="8" value="3">
             </div>
             <div id="color-pickers" class="color-grid"></div>
@@ -31,6 +31,14 @@
             <div class="car" id="car1"><span>🏎️</span></div>
             <div class="car" id="car2"><span>🏎️</span></div>
             <div class="car" id="car3"><span>🏎️</span></div>
+        </div>
+
+        <div class="betting-panel">
+            <h3>Your balance: <span id="balance-display">1000</span>$</h3>
+            <select id="bet-car-select">
+                <option value="">Choose car</option>
+            </select>
+            <input type="number" id="bet-amount" placeholder="Bet" min="0">
         </div>
 
         <div class="controls">
